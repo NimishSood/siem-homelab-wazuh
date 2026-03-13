@@ -53,14 +53,28 @@ Topics covered in Part 1 include:
 
 ## Repository Structure
 
-    siem-homelab-wazuh
-    │
+    siem-homelab-wazuh/
     ├── README.md
-    │
+    ├── architecture/
+    │   ├── component-flow.png
+    │   ├── network-topology.png
+    │   └── siem-architecture-diagram.png
+    ├── configs/
+    │   ├── graylog.conf
+    │   ├── jvm.options
+    │   ├── opensearch.yml
+    │   └── pipelines/
     ├── docs/
-    │   └── part1-wazuh-indexer.md
-    │
-    └── screenshots/
+    │   └── part1-wazuh-indexer/
+    │       ├── screenshots/
+    │       └── wazuh-indexer-deployment.md
+    ├── resources/
+    │   ├── learning-notes.md
+    │   └── references.md
+    ├── screenshots/
+    └── scripts/
+        ├── attack-simulation/
+        └── setup/
 
 Additional documentation will be added as the homelab progresses.
 
