@@ -49,8 +49,8 @@ The Wazuh Indexer is the central data store for the full SIEM stack planned for 
 | Component | Role | Status |
 |---|---|---|
 | **Wazuh Indexer (OpenSearch)** | Data storage and search layer | *This lab* |
-| **Graylog** | Log collection and processing (replaces the Wazuh Filebeat pipeline) | Part 2 |
-| **Wazuh Dashboard** | Web-based visualisation and monitoring UI | Future |
+| **Wazuh Dashboard** | Web-based visualisation and monitoring UI | Part 2 |
+| **Graylog** | Log collection and processing (replaces the Wazuh Filebeat pipeline) | Part 3 |
 | **Grafana** | Additional dashboarding and alerting | Future |
 | **Cassandra / MySQL** | Supporting databases for Graylog | Future |
 
@@ -453,4 +453,4 @@ Part 1 of the SIEM HomeLab series successfully deployed a single-node Wazuh Inde
 
 ---
 
-> **Next Steps:** Part 2 will deploy **Graylog** as the log collection layer, configure it to forward security events into the Wazuh Indexer, and begin ingesting data from monitored endpoints.
+> **Next Steps:** Part 2 will deploy the **Wazuh Dashboard** as the web-based visualisation and monitoring interface. The following step, Part 3, will deploy the **Graylog server** as the log collection layer and configure it to forward security events into the Wazuh Indexer.
