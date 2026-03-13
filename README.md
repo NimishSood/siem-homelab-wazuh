@@ -1,1 +1,1 @@
-# siem-homelab-wazuh
+# 📚 SIEM Homelab Series
