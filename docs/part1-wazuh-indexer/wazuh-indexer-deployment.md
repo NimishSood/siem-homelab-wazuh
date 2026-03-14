@@ -125,7 +125,7 @@ Create a new VM in VMware Workstation using the **Ubuntu Server 24.04.4 LTS** IS
 - RAM: 8 GB
 - Disk: 100 GB SSD — *Store virtual disk as a single file*
 
-![VMware virtual machine configuration settings](screenshots/figure1-vmware-vm-config.png)
+![VMware virtual machine configuration settings](./screenshots/figure1-vmware-vm-config.png)
 
 ---
 
@@ -133,7 +133,7 @@ Create a new VM in VMware Workstation using the **Ubuntu Server 24.04.4 LTS** IS
 
 Power on the VM and proceed through the Ubuntu Server installer. Accept defaults unless otherwise noted. After installation completes, reboot into the new OS.
 
-![Ubuntu Server 24.04.4 LTS installation screen](screenshots/figure2-ubuntu-install.png)
+![Ubuntu Server 24.04.4 LTS installation screen](./screenshots/figure2-ubuntu-install.png)
 
 ---
 
@@ -165,7 +165,7 @@ curl -sO https://packages.wazuh.com/4.14/config.yml
 
 Replace placeholder node names and IPs with actual values for all Wazuh components. The Graylog node (`192.168.71.101`) is entered in the `server` field, as it replaces the Wazuh Server in this architecture.
 
-![config.yml edited with node names and IP addresses](screenshots/figure3-config-yml.png)
+![config.yml edited with node names and IP addresses](./screenshots/figure3-config-yml.png)
 
 #### 4c — Generate the certificates
 
@@ -173,7 +173,7 @@ Replace placeholder node names and IPs with actual values for all Wazuh componen
 bash ./wazuh-certs-tool.sh -A
 ```
 
-![wazuh-certs-tool.sh certificate generation output](screenshots/figure4-cert-generation.png)
+![wazuh-certs-tool.sh certificate generation output](./screenshots/figure4-cert-generation.png)
 
 ---
 
@@ -228,7 +228,7 @@ apt-get update
 apt-get -y install wazuh-indexer
 ```
 
-![Wazuh Indexer apt installation command](screenshots/figure5-apt-install.png)
+![Wazuh Indexer apt installation command](./screenshots/figure5-apt-install.png)
 
 > **Access note:** The `/etc/wazuh-indexer/` directory is root-restricted. Use `sudo`-prefixed commands to access it without opening a permanent root session:
 
@@ -259,7 +259,7 @@ Apply the following changes:
 | `discovery.seed_hosts` | Add only the current node (single-node cluster) |
 | `node.max_local_storage_nodes` | Change from `3` to `1` |
 
-![opensearch.yml fully configured for single-node deployment](screenshots/figure6-opensearch-yml.png)
+![opensearch.yml fully configured for single-node deployment](./screenshots/figure6-opensearch-yml.png)
 
 ---
 
@@ -269,7 +269,7 @@ Apply the following changes:
 sudo tar -cvf ./wazuh-certificates.tar -C ./wazuh-certificates/ .
 ```
 
-![Compressing generated certificates into tar archive](screenshots/figure7-tar-certificates.png)
+![Compressing generated certificates into tar archive](./screenshots/figure7-tar-certificates.png)
 
 ---
 
@@ -295,7 +295,7 @@ sudo tar -xf ./wazuh-certificates.tar \
   ./root-ca.pem
 ```
 
-![Certificate files extracted into /etc/wazuh-indexer/certs/](screenshots/figure8-certs-extracted.png)
+![Certificate files extracted into /etc/wazuh-indexer/certs/](./screenshots/figure8-certs-extracted.png)
 
 #### 10c — Update certificate file paths in opensearch.yml
 
@@ -324,7 +324,7 @@ Add or uncomment the following line in `/etc/wazuh-indexer/opensearch.yml`:
 bootstrap.memory_lock: true
 ```
 
-![bootstrap.memory_lock enabled in opensearch.yml](screenshots/figure9-memory-lock.png)
+![bootstrap.memory_lock enabled in opensearch.yml](./screenshots/figure9-memory-lock.png)
 
 #### 11b — Set the systemd memory lock limit
 
@@ -339,7 +339,7 @@ Add the following under the `[Service]` section:
 LimitMEMLOCK=infinity
 ```
 
-![LimitMEMLOCK=infinity configured in the systemd service unit](screenshots/figure10-systemd-memlimit.png)
+![LimitMEMLOCK=infinity configured in the systemd service unit](./screenshots/figure10-systemd-memlimit.png)
 
 #### 11c — Configure JVM heap size in jvm.options
 
@@ -354,7 +354,7 @@ Change the heap allocation from the default 1 GB to **4 GB** (50% of available R
 -Xmx4g
 ```
 
-![JVM heap size set to 4 GB in jvm.options](screenshots/figure11-jvm-heap.png)
+![JVM heap size set to 4 GB in jvm.options](./screenshots/figure11-jvm-heap.png)
 
 > **Sizing rule:** Allocate **50% of system RAM** to the JVM heap. On an 8 GB machine, this is 4 GB. Do not exceed **31 GB** due to JVM compressed ordinary object pointer behaviour.
 
@@ -368,7 +368,7 @@ sudo systemctl enable wazuh-indexer
 sudo systemctl start wazuh-indexer
 ```
 
-![Wazuh Indexer systemd service enabled and started](screenshots/figure12-systemctl-start.png)
+![Wazuh Indexer systemd service enabled and started](./screenshots/figure12-systemctl-start.png)
 
 ---
 
@@ -382,7 +382,7 @@ The final step loads the TLS certificate configuration into the OpenSearch secur
 sudo /usr/share/wazuh-indexer/bin/indexer-security-init.sh
 ```
 
-![indexer-security-init.sh running and completing successfully](screenshots/figure13-security-init.png)
+![indexer-security-init.sh running and completing successfully](./screenshots/figure13-security-init.png)
 
 ---
 
@@ -396,7 +396,7 @@ Read the Wazuh cluster log to confirm successful initialisation. The expected ou
 sudo cat /var/log/wazuh-indexer/wazuh-cluster.log
 ```
 
-![Cluster log confirming "Node has been initialized"](screenshots/figure14-cluster-log.png)
+![Cluster log confirming "Node has been initialized"](./screenshots/figure14-cluster-log.png)
 
 ### 6.2 Verify Service Status
 
@@ -406,7 +406,7 @@ Confirm the Wazuh Indexer systemd service is active and running without errors:
 sudo systemctl status wazuh-indexer
 ```
 
-![Wazuh Indexer service active and healthy](screenshots/figure15-service-status.png)
+![Wazuh Indexer service active and healthy](./screenshots/figure15-service-status.png)
 
 ---
 
