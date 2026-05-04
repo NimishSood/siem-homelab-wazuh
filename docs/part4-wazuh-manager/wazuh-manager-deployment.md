@@ -38,7 +38,7 @@ This document covers Part 4 of the SIEM HomeLab series. Part 2 deployed the Wazu
 
 The Wazuh Manager is the central analysis and coordination component of the Wazuh platform. It receives events from Wazuh agents, evaluates those events against Wazuh rulesets, generates alerts, and writes alert output such as `alerts.json`. In this lab, the manager does not forward data directly to the Wazuh Indexer with Filebeat. Instead, Fluent Bit reads Wazuh alert output and forwards it to Graylog.
 
-> **Note:** Every screenshot, command, configuration block, troubleshooting note, correction, and technical observation from the raw Part 4 notes is preserved and integrated into this professional version. Incorrect attempts are retained and clearly marked rather than silently removed.
+> **Note:** Every screenshot, command, configuration block, troubleshooting note, correction, and technical observation from my raw Part 4 notes is preserved and integrated into this professional version. Incorrect attempts are retained and clearly marked rather than silently removed.
 
 ### 1.2 What Is the Wazuh Manager?
 
