@@ -95,7 +95,7 @@ ss -ltnpd | grep wazuh
 
 The screenshot shows two important manager-side processes: wazuh-authd listening on TCP 1515 and wazuh-remoted listening on TCP 1514. wazuh-authd handles registration and key exchange, while wazuh-remoted receives operational agent logs after enrollment.
 
-![Wazuh Manager listening on TCP 1515 for registration and TCP 1514 for agent event traffic](../docs/part5-wazuh-agents/screenshots/figure1-wazuh-manager-agent-ports.png)
+![Wazuh Manager listening on TCP 1515 for registration and TCP 1514 for agent event traffic](./screenshots/figure1-wazuh-manager-agent-ports.png)
 
 ---
 
@@ -115,7 +115,7 @@ The first agent was deployed to the Debian 12 endpoint named debian12-1. In the 
 
 > **Note:** Using a hostname or FQDN for the manager address is recommended in production. This lab used the raw IP address 192.168.71.102 for simplicity and consistency across the lab network.
 
-![Wazuh Dashboard deployment form for the Debian 12 agent with manager address 192.168.71.102 and linux group assignment](../docs/part5-wazuh-agents/screenshots/figure2-debian-agent-dashboard-deployment-form.png)
+![Wazuh Dashboard deployment form for the Debian 12 agent with manager address 192.168.71.102 and linux group assignment](./screenshots/figure2-debian-agent-dashboard-deployment-form.png)
 
 The Dashboard-generated Linux installation command was:
 
@@ -137,7 +137,7 @@ wget https://packages.wazuh.com/4.x/apt/pool/main/w/wazuh-agent/wazuh-agent_4.14
 
 The terminal output confirmed that the Wazuh package was downloaded and installed. The package shown in the output was wazuh-agent 4.14.3-1. The file was saved as wazuh-agent_4.14.3-1_amd64.deb.1 because a copy already existed on the host.
 
-![Debian 12 terminal output showing the Wazuh agent package download and installation](../docs/part5-wazuh-agents/screenshots/figure3-debian-agent-package-installation.png)
+![Debian 12 terminal output showing the Wazuh agent package download and installation](./screenshots/figure3-debian-agent-package-installation.png)
 
 After installation, the Wazuh agent service must be enabled and started:
 
@@ -153,7 +153,7 @@ sudo systemctl start wazuh-agent
 
 After enrollment, the Debian agent appeared in the Wazuh web interface. The captured screenshot shows the agent object present with the name debian12-1 and the linux group. At that moment it was still marked never connected, which can happen before the service finishes starting or before the first successful heartbeat reaches the manager.
 
-![Debian agent registered in the Wazuh web UI before the active heartbeat was visible](../docs/part5-wazuh-agents/screenshots/figure4-debian-agent-registered-before-heartbeat.png)
+![Debian agent registered in the Wazuh web UI before the active heartbeat was visible](./screenshots/figure4-debian-agent-registered-before-heartbeat.png)
 
 ---
 
@@ -163,7 +163,7 @@ After enrollment, the Debian agent appeared in the Wazuh web interface. The capt
 
 A Windows Server 2025 Standard virtual machine was created as the second monitored endpoint. The VM was placed under the Agent VMs directory and configured with NAT networking for the lab.
 
-![VMware Workstation summary for the Windows Server 2025 endpoint VM](../docs/part5-wazuh-agents/screenshots/figure5-windows-server-2025-vm-summary.png)
+![VMware Workstation summary for the Windows Server 2025 endpoint VM](./screenshots/figure5-windows-server-2025-vm-summary.png)
 
 ---
 
@@ -179,7 +179,7 @@ The same Wazuh Dashboard deployment workflow was used for Windows. The Windows M
 | Manager address | 192.168.71.102 |
 | Group | windows |
 
-![Wazuh Dashboard deployment form for the Windows Server 2025 agent](../docs/part5-wazuh-agents/screenshots/figure6-windows-agent-dashboard-deployment-form.png)
+![Wazuh Dashboard deployment form for the Windows Server 2025 agent](./screenshots/figure6-windows-agent-dashboard-deployment-form.png)
 
 The Dashboard-generated Windows installation command was:
 
@@ -200,7 +200,7 @@ NET START Wazuh
 
 The terminal output confirmed: The Wazuh service is starting. The Wazuh service was started successfully.
 
-![Administrator PowerShell showing the Windows Wazuh agent installation and service start](../docs/part5-wazuh-agents/screenshots/figure7-windows-wazuh-agent-install-service-start.png)
+![Administrator PowerShell showing the Windows Wazuh agent installation and service start](./screenshots/figure7-windows-wazuh-agent-install-service-start.png)
 
 ---
 
@@ -208,7 +208,7 @@ The terminal output confirmed: The Wazuh service is starting. The Wazuh service 
 
 The endpoint list then showed two agents: debian12-1 and windows-server-2025-1. The Debian endpoint was active with Debian GNU/Linux 12 and Wazuh agent version v4.14.3. The Windows agent was visible but still marked never connected in the captured screenshot, meaning the object had been created but the UI had not yet shown an active agent heartbeat.
 
-![Wazuh endpoint list showing Debian active and Windows registered but not yet connected](../docs/part5-wazuh-agents/screenshots/figure8-endpoint-list-debian-active-windows-pending.png)
+![Wazuh endpoint list showing Debian active and Windows registered but not yet connected](./screenshots/figure8-endpoint-list-debian-active-windows-pending.png)
 
 ---
 
@@ -584,7 +584,7 @@ After Sysmon was working on the Windows endpoint, the Wazuh agent needed to be i
 
 In the Wazuh Dashboard, navigate to Groups, select the windows group, and click Edit group configuration.
 
-![Wazuh Groups page showing the linux and windows agent groups and the Edit group configuration action](../docs/part5-wazuh-agents/screenshots/figure9-wazuh-agent-groups-edit-action.png)
+![Wazuh Groups page showing the linux and windows agent groups and the Edit group configuration action](./screenshots/figure9-wazuh-agent-groups-edit-action.png)
 
 ---
 
@@ -599,7 +599,7 @@ The following localfile block instructs the Wazuh Windows agent to collect the S
 </localfile>
 ```
 
-![Windows group configuration containing the Sysmon Event Channel localfile block](../docs/part5-wazuh-agents/screenshots/figure10-windows-group-sysmon-localfile-block.png)
+![Windows group configuration containing the Sysmon Event Channel localfile block](./screenshots/figure10-windows-group-sysmon-localfile-block.png)
 
 > **Note:** On newer versions of Wazuh, this Sysmon localfile block may already be present in the Windows group configuration. If it already exists, do not duplicate it.
 
@@ -633,7 +633,7 @@ wazuh-analysisd: ERROR: (1226): Error reading XML file 'etc/ossec.conf': (Line 4
 wazuh-analysisd: Configuration error. Exiting
 ```
 
-![Wazuh Manager service failure after configuration/testing changes](../docs/part5-wazuh-agents/screenshots/figure11-wazuh-manager-service-failure.png)
+![Wazuh Manager service failure after configuration/testing changes](./screenshots/figure11-wazuh-manager-service-failure.png)
 
 ### 8.3 Root Cause: ossec.conf Ownership and Permissions Were Wrong
 
@@ -641,7 +641,7 @@ The root cause identified in the raw notes was incorrect permissions and ownersh
 
 The directory listing showed ossec.conf owned by root:root instead of root:wazuh. That prevented the Wazuh process from reading the configuration correctly.
 
-![Directory listing showing ossec.conf ownership and permissions after backup/testing changes](../docs/part5-wazuh-agents/screenshots/figure12-ossec-conf-wrong-ownership-permissions.png)
+![Directory listing showing ossec.conf ownership and permissions after backup/testing changes](./screenshots/figure12-ossec-conf-wrong-ownership-permissions.png)
 
 ### 8.4 Fix: Restore Correct ossec.conf Permissions and Ownership
 
@@ -669,7 +669,7 @@ Started wazuh-logcollector
 Started wazuh-modulesd
 ```
 
-![Permissions restored on ossec.conf and wazuh-manager service running successfully](../docs/part5-wazuh-agents/screenshots/figure13-ossec-conf-permissions-restored-manager-running.png)
+![Permissions restored on ossec.conf and wazuh-manager service running successfully](./screenshots/figure13-ossec-conf-permissions-restored-manager-running.png)
 
 ### 8.5 Confirm Events on the Wazuh Manager Command Line
 
@@ -685,7 +685,7 @@ sudo tail -f /var/ossec/logs/archives/archives.json | grep -Ei "002|windows-serv
 
 The screenshot shows Windows eventchannel data arriving from agent 002, windows-server-2025-1 at 192.168.71.202. The visible event includes Microsoft-Windows-PowerShell/Operational telemetry and confirms that the manager was ingesting Windows endpoint logs.
 
-![Windows endpoint event data visible from the Wazuh Manager archives file](../docs/part5-wazuh-agents/screenshots/figure14-windows-events-visible-in-manager-archives.png)
+![Windows endpoint event data visible from the Wazuh Manager archives file](./screenshots/figure14-windows-events-visible-in-manager-archives.png)
 
 ---
 
@@ -791,7 +791,7 @@ sudo ./script.sh
 
 The script output showed Packetbeat being installed, packetbeat-7.16.3-amd64.deb being unpacked, and /etc/packetbeat/packetbeat.yml being downloaded from the SOCFortress repository. The output also showed the SOCFortress message: Need assistance? Shoot us an email at info@socfortress.co!
 
-![curl installation correction and Packetbeat 7.16.3 installation script output on Debian 12](../docs/part5-wazuh-agents/screenshots/figure15-curl-correction-packetbeat-installation.png)
+![curl installation correction and Packetbeat 7.16.3 installation script output on Debian 12](./screenshots/figure15-curl-correction-packetbeat-installation.png)
 
 ---
 
@@ -805,7 +805,7 @@ sudo tail -f /tmp/packetbeat/packetbeat
 
 The screenshot shows Packetbeat JSON flow records with agent.name and host.hostname set to debian12-1, Packetbeat version 7.16.3, network traffic fields, source and destination addresses, and a visible flow from 192.168.71.201 to 192.168.71.102 on TCP port 1514. That port is the Wazuh agent event channel, which confirms Packetbeat can also observe traffic between the Linux agent and the Wazuh Manager.
 
-![Live Packetbeat JSON flow records written to /tmp/packetbeat/packetbeat](../docs/part5-wazuh-agents/screenshots/figure16-packetbeat-json-flow-records.png)
+![Live Packetbeat JSON flow records written to /tmp/packetbeat/packetbeat](./screenshots/figure16-packetbeat-json-flow-records.png)
 
 ---
 
@@ -824,7 +824,7 @@ The Wazuh agent on the Debian host must be told to collect the Packetbeat output
 
 The log_format is json because Packetbeat writes structured JSON events to the target file. The location points to the Packetbeat output path configured by the downloaded Packetbeat YAML.
 
-![Linux group configuration edit view where the Packetbeat log collection block was added](../docs/part5-wazuh-agents/screenshots/figure17-linux-group-packetbeat-localfile-block.png)
+![Linux group configuration edit view where the Packetbeat log collection block was added](./screenshots/figure17-linux-group-packetbeat-localfile-block.png)
 
 ---
 
@@ -891,3 +891,4 @@ Part 5 deployed Wazuh agents to both a Debian 12 endpoint and a Windows Server 2
 At the end of this part, the SIEM HomeLab has endpoint agents deployed and enhanced endpoint telemetry sources in place. The Windows endpoint can provide Windows Event Channel and Sysmon telemetry, while the Debian endpoint can provide Wazuh agent logs plus Packetbeat network flow records.
 
 Next: SIEM HomeLab - Part 6: Routing with Graylog.
+
