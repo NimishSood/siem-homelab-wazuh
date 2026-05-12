@@ -4,7 +4,7 @@ This repository documents a hands-on SIEM homelab built around the Wazuh stack o
 
 ## Current Completion
 
-Five parts of the lab are currently documented and complete:
+Six parts of the lab are currently documented and complete:
 
 | Part | Component | Status | Notes |
 |---|---|---|---|
@@ -13,9 +13,10 @@ Five parts of the lab are currently documented and complete:
 | 3 | Graylog Server | Complete | Graylog deployed with MongoDB 8.0, Java 21, TLS truststore configuration, and verified web access |
 | 4 | Wazuh Manager | Complete | Manager deployed, connected to Graylog through Fluent Bit, and connected to the Wazuh Dashboard |
 | 5 | Wazuh Agents | Complete | Debian 12 and Windows Server 2025 agents deployed, with Sysmon and Packetbeat telemetry configured |
-| Future | Grafana / parsing / supporting services | Planned | Graylog parsing pipelines, additional dashboards, alerting, and supporting data services |
+| 6 | Graylog Routing | Complete | Wazuh alerts parsed with a JSON extractor, routed through a dedicated stream, and stored in a Wazuh alert index set |
+| Future | Grafana / dashboards / supporting services | Planned | Additional dashboards, alerting, downstream visualization, and supporting data services |
 
-At the current stage, the repository documents a working Wazuh Indexer, Wazuh Dashboard, Graylog Server, Wazuh Manager, and initial endpoint agent deployment. Graylog is reachable at `http://192.168.71.101:9000`, and the Wazuh Manager forwards raw Wazuh alert output to Graylog through Fluent Bit on TCP port `5555`. Debian 12 and Windows Server 2025 endpoints are onboarded to the manager, with Packetbeat extending Linux network visibility and Sysmon extending Windows endpoint telemetry. Later parts are still needed to parse raw messages into structured Graylog fields, complete downstream routing, add Grafana, and replace any remaining placeholder assets or configuration snapshots.
+At the current stage, the repository documents a working Wazuh Indexer, Wazuh Dashboard, Graylog Server, Wazuh Manager, endpoint agent deployment, and Graylog-based Wazuh alert routing. Graylog is reachable at `http://192.168.71.101:9000`, and the Wazuh Manager forwards Wazuh alert output to Graylog through Fluent Bit on TCP port `5555`. Debian 12 and Windows Server 2025 endpoints are onboarded to the manager, with Packetbeat extending Linux network visibility and Sysmon extending Windows endpoint telemetry. Wazuh alerts are parsed in Graylog with a JSON extractor, tagged with `log_type=wazuh`, routed through the Wazuh Alerts stream, and stored in the dedicated `wazuh-alerts-nimish` index set. Later parts are still needed to add Grafana, build dashboards and alerting workflows, and replace any remaining placeholder assets or configuration snapshots.
 
 ## What Is In This Repo
 
@@ -23,7 +24,8 @@ At the current stage, the repository documents a working Wazuh Indexer, Wazuh Da
 - [Part 2 Dashboard guide](docs/part2-wazuh-dashboard/wazuh-dashboard-deployment.md) covers the dashboard VM, certificate regeneration, dashboard installation, configuration, service startup, and browser verification.
 - [Part 3 Graylog Server guide](docs/part3-graylog-server/graylog-server-deployment.md) covers the Graylog VM, MongoDB 8.0, Graylog 7.0, Java 21, Wazuh Indexer TLS truststore setup, backend user creation, troubleshooting, and browser verification.
 - [Part 4 Wazuh Manager guide](docs/part4-wazuh-manager/wazuh-manager-deployment.md) covers Wazuh Manager installation, Graylog Raw/Plaintext TCP input setup, Fluent Bit forwarding, dashboard manager connection, hardening, vulnerability detection, agent groups, and optional SOCFortress rules.
-- [Part 5 Wazuh Agents guide](part5-wazuh-agents/wazuh-agents-deployment.md) covers Debian 12 and Windows Server 2025 agent deployment, Sysmon installation and troubleshooting, Windows group Sysmon collection, Packetbeat installation, and Linux group Packetbeat collection.
+- [Part 5 Wazuh Agents guide](docs/part5-wazuh-agents/wazuh-agents-deployment.md) covers Debian 12 and Windows Server 2025 agent deployment, Sysmon installation and troubleshooting, Windows group Sysmon collection, Packetbeat installation, and Linux group Packetbeat collection.
+- [Part 6 Graylog Routing guide](docs/part6-graylog-routing/graylog-routing-deployment.md) covers Graylog JSON extractors, Wazuh alert parsing, dedicated index set creation, stream routing, static input fields, and routing verification.
 - `architecture/` contains supporting diagrams for the homelab design.
 - `configs/` contains configuration snapshots for the stack, including `opensearch.yml`, `jvm.options`, and `graylog.conf`.
 - `resources/` contains learning notes and references for the lab.
@@ -77,10 +79,12 @@ siem-homelab-wazuh/
 │   ├── part4-wazuh-manager/
 │   │   ├── screenshots/
 │   │   └── wazuh-manager-deployment.md
-│   └── part5-wazuh-agents/
-│       └── screenshots/
-├── part5-wazuh-agents/
-│   └── wazuh-agents-deployment.md
+│   ├── part5-wazuh-agents/
+│   │   ├── screenshots/
+│   │   └── wazuh-agents-deployment.md
+│   └── part6-graylog-routing/
+│       ├── screenshots/
+│       └── graylog-routing-deployment.md
 ├── resources/
 │   ├── learning-notes.md
 │   └── references.md
@@ -94,10 +98,10 @@ siem-homelab-wazuh/
 
 The next documented phase should focus on:
 
-1. Parsing raw Wazuh, Sysmon, and Packetbeat messages in Graylog into searchable fields.
-2. Creating Graylog streams, pipelines, and routing behavior for processed security events.
-3. Validating downstream forwarding paths for processed endpoint telemetry.
-4. Adding Grafana and any supporting services needed for visualization and alerting.
+1. Building Grafana dashboards and any supporting services needed for visualization and alerting.
+2. Creating Graylog dashboards, searches, and operational views for parsed Wazuh, Sysmon, and Packetbeat telemetry.
+3. Validating downstream visualization paths for processed endpoint telemetry.
+4. Expanding alerting and investigation workflows around the routed Wazuh alert index set.
 5. Replacing placeholder diagrams, configuration snapshots, pipeline files, and automation with finalized artifacts when the entire series is complete.
 6. Expanding the repo with operational notes, references, and automation as the lab matures.
 
