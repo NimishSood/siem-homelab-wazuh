@@ -24,8 +24,7 @@ At the current stage, the repository documents a working Wazuh Indexer, Wazuh Da
 - [Part 2 Dashboard guide](docs/part2-wazuh-dashboard/wazuh-dashboard-deployment.md) covers the dashboard VM, certificate regeneration, dashboard installation, configuration, service startup, and browser verification.
 - [Part 3 Graylog Server guide](docs/part3-graylog-server/graylog-server-deployment.md) covers the Graylog VM, MongoDB 8.0, Graylog 7.0, Java 21, Wazuh Indexer TLS truststore setup, backend user creation, troubleshooting, and browser verification.
 - [Part 4 Wazuh Manager guide](docs/part4-wazuh-manager/wazuh-manager-deployment.md) covers Wazuh Manager installation, Graylog Raw/Plaintext TCP input setup, Fluent Bit forwarding, dashboard manager connection, hardening, vulnerability detection, agent groups, and optional SOCFortress rules.
-- [Part 5 Wazuh Agents guide](docs/part5-wazuh-agents/wazuh-agents-deployment.md) covers Debian 12 and Windows Server 2025 agent deployment, Sysmon installation and troubleshooting, Windows group Sysmon collection, Packetbeat installation, and Linux group Packetbeat collection.
-- [Part 6 Graylog Routing guide](docs/part6-graylog-routing/graylog-routing-deployment.md) covers Graylog JSON extractors, Wazuh alert parsing, dedicated index set creation, stream routing, static input fields, and routing verification.
+- [Part 5 Wazuh Agents guide](part5-wazuh-agents/wazuh-agents-deployment.md) covers Debian 12 and Windows Server 2025 agent deployment, Sysmon installation and troubleshooting, Windows group Sysmon collection, Packetbeat installation, and Linux group Packetbeat collection.
 - `architecture/` contains supporting diagrams for the homelab design.
 - `configs/` contains configuration snapshots for the stack, including `opensearch.yml`, `jvm.options`, and `graylog.conf`.
 - `resources/` contains learning notes and references for the lab.
